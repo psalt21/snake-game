@@ -7,6 +7,7 @@ $(document).ready(function(){
 
   var cw = 40;
   var colors = ['green', 'yellow', 'red'];
+  var d = '';
 
   var lights_array = [];
 
@@ -35,6 +36,24 @@ $(document).ready(function(){
     lights_array.unshift(lastLight);
     lights_array.push(firstLight);
 
+    // add a for loop her that iterates through the array and changes the x and y values depending
+    // on which direction you are handing
+    for(var i = 0; i < lights_array.length; i++){
+      if(d === 'left'){
+        lights_array[i].x--;
+      }else if(d === 'up'){
+        lights_array[i].y--;
+      }else if(d === 'right'){
+        lights_array[i].x++;
+      }else if(d === 'down'){
+        lights_array[i].y++;
+      }
+    }
+
+
+    // tHis resets the direction so tht it only move one spot at a time
+    d = 'noDirection';
+
 
     for(var i = 0; i < lights_array.length; i++){
       var c = lights_array[i];
@@ -47,5 +66,21 @@ $(document).ready(function(){
   }
   game_loop = setInterval(paint, 600);
   paint();
+
+  // Add the keyboard controls here. use $(document).keydown(function(e){}) command
+  // Use the e.which command o get the number of the key pressed. then change the direction
+  $(document).keydown(function(e){
+    var key = e.which;
+
+    if(key === 37){
+      d = 'left';
+    }else if(key === 38){
+      d = 'up';
+    }else if(key === 39){
+      d = 'right';
+    }else if(key === 40){
+      d = 'down';
+    }
+  })
 
 });
